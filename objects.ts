@@ -40,3 +40,87 @@ const movie:Movie = {
     director: "xyz",
     budget: 3000000
 }
+
+
+// nested object
+
+
+type carDetails = {
+    yearOfPurchase: number,
+    fuelType: string,
+    average: number
+}
+
+type Car = {
+    company: string,
+    model: string,
+    price: number,
+    details: carDetails
+}
+
+const mycar: Car = {
+    company: "Tata",
+    model: "Nexon",
+    price: 1500000,
+    details: {
+        yearOfPurchase: 2022,
+        fuelType: "Petrol",
+        average: 25
+    }
+}
+
+
+// optional parameter
+type Bike = {
+    company: string,
+    model: string,
+    price: number,
+    owner?: string
+}
+
+const mybike: Bike = {
+    company: "Ola",
+    model: "S1 pro",
+    price: 100000
+} 
+
+// readonly modifier
+type Dog = {
+    name: string,
+    readonly breed?: string,
+    age: number,
+}
+
+
+const myDog: Dog = {
+    name: "Lio",
+    age: 1
+}
+
+console.log(myDog.breed);
+// myDog.breed = "Beagle"; // not allow to change as its read only
+
+
+
+// intersection type
+type Circle = {
+    radius: number
+}
+
+type Color = {
+    color: string
+}
+
+
+type ColorfulCircle = Circle & Color;
+
+const ball: ColorfulCircle = {
+    radius: 20,
+    color: "red"
+};
+
+type ColorfulCircle1 = Circle | Color;
+
+const myCircle: ColorfulCircle1 = {
+    color: "red"
+};
