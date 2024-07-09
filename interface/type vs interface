@@ -1,0 +1,41 @@
+==================== type ====================
+
+1) literals can be defined with type only
+ex: 
+type breed = "Begal" | "Lab | "Husky 
+
+2) Can not re-open and add new properties or function
+
+3) We can not inherit aka: extends type 
+
+
+==================== Interface ====================
+
+1) literals can not be defined with interface
+
+2) Can re-open and add new properties or function
+ex:
+interface Person {
+  name: string,
+}
+
+interface Person {
+  lastname: string
+}
+
+3) We can inherit aka: extends interfaces
+ex: 
+interface Person {
+  name: string,
+}
+
+interface Employee extends Person {
+  lastname: string
+}
+
+const joe: Employee = {
+  name: "Joe",
+  lastname: "Kate"
+}
+
+4) Interfaces are better when complexity is there its more readable, uable and inheritance makes it more powerful.
