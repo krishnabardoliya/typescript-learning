@@ -1,0 +1,19 @@
+================ few tsconfig options and its use ================
+
+1) files: ["filename.ts]
+- Only compile and emit mentioned filename
+
+
+2) include: ["src/**/**"]
+- define path need to compile and emit
+- default value is "**" meaning include everything in project directory
+
+
+3) exclude: ["tests/**/**]
+- define path to excude in copilation and emit
+- default value is "node_modules"
+- can be "**.test.ts" exclude every file which has extention .test.ts
+
+
+4) outDir
+- to define where to emit compiled .js files
