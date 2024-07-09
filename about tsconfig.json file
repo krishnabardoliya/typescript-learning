@@ -1,3 +1,6 @@
+tsc --init
+to create tsconfig.json file
+
 ================ few tsconfig options and its use ================
 
 1) files: ["filename.ts]
@@ -17,3 +20,20 @@
 
 4) outDir
 - to define where to emit compiled .js files
+
+
+5) target: "es2015"
+- convert from ts to js with mentioned version.
+- ex: if target is es5 emited files will not have arrow functions or const variable.
+
+
+6) strict
+- default value is true, meaning enforces all TypeScript strict checking rules during compilation, and throw error if exist.
+- false will by pass typescript errors
+
+
+7) strictNullCheck
+- if set to true, will do null checking else skip
+- ex: let user: number[] = [1,2,3,4]
+user = null // throws error if set to true else not show error
+user = undefined // throws error if set to true else not show error
