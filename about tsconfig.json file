@@ -37,3 +37,7 @@ to create tsconfig.json file
 - ex: let user: number[] = [1,2,3,4]
 user = null // throws error if set to true else not show error
 user = undefined // throws error if set to true else not show error
+
+8) lib: []
+if lib is empty("[]") it will not show suggestion on any library installed, and don't give suggestion for dom element properties "document"
+default it will give suggestion of dom methods
