@@ -15,7 +15,7 @@ class Person {
         return `${this.firstname} ${this.lastname}`;
     }
     get shops() {
-        return this.shops;
+        return this._shops;
     }
     // setter
     // setter will be accessed as property of object
@@ -24,7 +24,7 @@ class Person {
         if (newShop < 0) {
             throw new Error("Shops must be positive values");
         }
-        this.shops = newShop;
+        this._shops = newShop;
     }
     // static method
     // group functionality with the class which nothing to do with instance

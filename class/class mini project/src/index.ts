@@ -13,8 +13,8 @@ class Person {
     get fullName() {
         return `${this.firstname} ${this.lastname}`
     }
-    get shops(): string {
-        return this.shops;
+    get shops(): number {
+        return this._shops;
     }
     // setter
     // setter will be accessed as property of object
@@ -23,7 +23,7 @@ class Person {
         if(newShop < 0) {
             throw new Error("Shops must be positive values")
         }
-        this.shops = newShop;
+        this._shops = newShop;
     }
 
     // static method
