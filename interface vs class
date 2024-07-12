@@ -1,0 +1,3 @@
+- interface don't have getter setter as class has
+- interface doesn't have private property as # it can assied as readonly and can't be re-assigned once assigned.
+- interface doesn't have constructor while class has
