@@ -1,8 +1,9 @@
 class Person {
     // only accesible to class parameter not instance parameter
     static description = "person who has shpops";
+    protected address: string = ''; // protected only accessible in class and the class which inhert it, not outside the class
     money: number = 100;
-    #shops: number = 1; // provate field only available inside the class
+    private _shops: number = 1; // private field only available inside the class, also not accessible in class which inherit it
     _products: number = 2; // _ means it is provate property but doesn't work as private propert just for indication for developer
     constructor(public readonly firstname: string, public lastname: string) {
     }
@@ -12,17 +13,17 @@ class Person {
     get fullName() {
         return `${this.firstname} ${this.lastname}`
     }
-    get shops() {
-        return this.#shops;
+    get shops(): string {
+        return this.shops;
     }
     // setter
     // setter will be accessed as property of object
     // setter will be helpful when upating any provate property and it will be more readable and simple to understand
-    set shops(newShop) {
+    set shops(newShop: number) {
         if(newShop < 0) {
             throw new Error("Shops must be positive values")
         }
-        this.#shops = newShop;
+        this.shops = newShop;
     }
 
     // static method
@@ -39,10 +40,10 @@ class Person {
         this.money -= 10;
     }
     getShops() {
-        return this.#shops;
+        return this._shops;
     }
     updateShops() {
-        this.#shops += this.#shops;
+        this._shops += this._shops;
     }
     private secret(): void {
         console.log("its private only accessible inside class");
@@ -52,8 +53,9 @@ class Person {
 
 // extend class
 class Distributor extends Person {
-    constructor(public fname:string, public lname: string, public area: string) {
+    constructor(public fname:string, public lname: string, public area: string, address?: string) {
         super(fname,lname);
+        this.address = address || '';
     }
 } 
 
@@ -81,3 +83,4 @@ console.log("Person.description =>",Person.description);
 // access static method
 const person3 = Person.createRandomPerson();
 console.log("person3 =>", person3);
+

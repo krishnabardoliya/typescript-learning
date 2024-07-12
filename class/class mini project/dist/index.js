@@ -1,22 +1,11 @@
 "use strict";
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
-    if (kind === "m") throw new TypeError("Private method is not writable");
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
-    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
-};
-var _Person_shops;
 class Person {
     constructor(firstname, lastname) {
         this.firstname = firstname;
         this.lastname = lastname;
+        this.address = ''; // protected only accessible in class and the class which inhert it, not outside the class
         this.money = 100;
-        _Person_shops.set(this, 1); // provate field only available inside the class
+        this._shops = 1; // private field only available inside the class, also not accessible in class which inherit it
         this._products = 2; // _ means it is provate property but doesn't work as private propert just for indication for developer
     }
     // getter
@@ -26,7 +15,7 @@ class Person {
         return `${this.firstname} ${this.lastname}`;
     }
     get shops() {
-        return __classPrivateFieldGet(this, _Person_shops, "f");
+        return this.shops;
     }
     // setter
     // setter will be accessed as property of object
@@ -35,7 +24,7 @@ class Person {
         if (newShop < 0) {
             throw new Error("Shops must be positive values");
         }
-        __classPrivateFieldSet(this, _Person_shops, newShop, "f");
+        this.shops = newShop;
     }
     // static method
     // group functionality with the class which nothing to do with instance
@@ -51,25 +40,25 @@ class Person {
         this.money -= 10;
     }
     getShops() {
-        return __classPrivateFieldGet(this, _Person_shops, "f");
+        return this._shops;
     }
     updateShops() {
-        __classPrivateFieldSet(this, _Person_shops, __classPrivateFieldGet(this, _Person_shops, "f") + __classPrivateFieldGet(this, _Person_shops, "f"), "f");
+        this._shops += this._shops;
     }
     secret() {
         console.log("its private only accessible inside class");
     }
 }
-_Person_shops = new WeakMap();
 // only accesible to class parameter not instance parameter
 Person.description = "person who has shpops";
 // extend class
 class Distributor extends Person {
-    constructor(fname, lname, area) {
+    constructor(fname, lname, area, address) {
         super(fname, lname);
         this.fname = fname;
         this.lname = lname;
         this.area = area;
+        this.address = address || '';
     }
 }
 const distributor = new Distributor("Una", "Dean", "South");
@@ -93,11 +82,3 @@ console.log("Person.description =>", Person.description);
 // access static method
 const person3 = Person.createRandomPerson();
 console.log("person3 =>", person3);
-// Difference between JS class vs Typescript class
-// 1) type strict 
-// 2) readonly
-// 3) public and privte modifiers only availble in ts 
-// readonly is for changable or not public private is for accessible or not for visibility.
-// public - availble to access inside and outside of the class
-// private - only able to access inside the class #name and private modifiers both do same job, just declaring private than adding # is more readable and clearly understandable is the difference.
-// can not use private #shops = 2 both "private" modifier and "#" can not be used together. 
