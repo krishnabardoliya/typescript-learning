@@ -1,0 +1,8 @@
+// Difference between JS class vs Typescript class
+// 1) type strict 
+// 2) readonly
+// 3) public and privte modifiers only availble in ts 
+// readonly is for changable or not public private is for accessible or not for visibility.
+// public - availble to access inside and outside of the class
+// private - only able to access inside the class #name and private modifiers both do same job, just declaring private than adding # is more readable and clearly understandable is the difference.
+// can not use private #shops = 2 both "private" modifier and "#" can not be used together. 
