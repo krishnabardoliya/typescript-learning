@@ -1,0 +1,12 @@
+Abstract class:
+
+- can not create instance of the abstract class,but can be used as a base class for other classes.
+- Abstract methods within Abstract classes must be implemented by any subclass.
+- Methods in an abstract class that do not have an implementation and must be overridden by derived classes.
+
+
+
+Why Use Abstract Classes?
+1) Code Reusability: Abstract classes allow you to define common functionality that can be shared among subclasses.
+2) Design Contracts: Abstract methods define a contract that subclasses must follow, ensuring that they implement specific methods.
+3) Preventing Instantiation: Abstract classes cannot be instantiated, which enforces that they are meant only to be extended.
