@@ -1,0 +1,13 @@
+module in typescript
+
+1) if there is no export all files in ts are global scope.
+- If we provide export to any of the function we need to manually write import statement and import in required files.
+also, need to add those script as type="module" to run on browser and run on server ex: lite-server to run on browser
+
+
+2) if not using any import export, if working with index.html, file should be in correct order while including script
+
+
+3) importing types
+syntax of importing types, interfaces:
+import type {Color} from './utils.js'; or import {type Color} from './utils.js';
