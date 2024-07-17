@@ -1,0 +1,12 @@
+1) create react app with typescript
+npx create-react-app shopping-app --template typescript
+
+- only thing to take care while working with typescript and react is it tusing tsx and while defining generic function/class we need to give additional , if its arrow function
+
+ex: const returnDouble = <T,>(x: T): T => {
+    return `${x} ${x}`;
+} 
+
+
+useState, useRef, interface to props passed in function and component props,
+you can checkout react-typescritp-cheetsheet for other examples like context
