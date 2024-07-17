@@ -1,0 +1,108 @@
+// Webpack
+
+1) why webpack: while workingwith many files and third party library we need to load them in order and also it will do lot of http request to load each on browser, to bundle them to one we need webpack
+
+2)"webpack" is module bundler, to use it from command line and in package.json we need "webpack-cli" package "typescript" should also be there in package.json not only installed on system we are working on. and "ts-loader" middle man between typescript and it compile ts to js and handover to webpack which then bundle everything together.
+
+// ********* webpack.config.json ***********
+
+const path = require('path');
+
+module.export = {
+    mode: "development",    // default mode is production as we are working in development need to set it to development, it will not minify bundle.js file
+    entry: "./src/index.ts", // entry point
+    devtool: 'inline-source-map', 
+    devServer: {
+        static: {
+          directory: path.join(__dirname, "./"),
+        },
+    },
+    module: {
+        {
+            test: /\.tsx?$/,                // test is regular expression, here if it find ts or tsx file
+            use: "ts-loader"               // then use ts-loader
+            exclude: /node_modules/,       // do not scan to node_module to find ts tsx
+
+        }
+    },
+    resolves: {
+        extension: ['.ts', '.tsx', '.js']
+    },
+    output: {
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'dist') // resolve a path with current directory and put in dist
+        publicPath: '/dist'
+    }
+}
+
+
+3) then add script build in package.json
+"build" :"webpack"
+
+4) runnning above script it will create bundle.js in dist folder,
+include that in index.html 
+<script src="dist/bundle.js"></script>
+
+
+5) we can not debug add break points if we run bundle.js on browser while in dev mode:
+we need to add "sourceMap"  will take minified bundle and map it backward to its pre build state.
+that we will able to see where actual code is coming from and make bundle
+in "tsconfig.json" set,
+"sourceMap" : true
+and in webpack.config.json add: 
+devtool: 'inline-source-map',
+
+now in browser source we will able to see webpack_ts which has all files that created bundle file
+
+
+6) set mode to development instead of default production as it will not minify the bundle.js file and will be helpful in development mode.
+
+7) using "webpack-dev-server" instead of lite-server, as it will handle building behind the scence and serve the code also keeps in memory instead creating bundle file everytime.
+- install npm install --save-dev webpack-dev-server
+- add script in package.json file
+{
+    script: {
+        "serve" : "webpack serve"
+    }
+}
+
+- add "devServer" configuration in "webpack.config.json" file
+- under output in "webpack.config.json" file add publicPath
+- now serve by executing command "npm serve" which will serve on another port.
+- you will see dist is empty as bundle is stored in memory.
+- if we do "npm run build" webpack create bundle file in dist and can use that in production.
+
+
+8) Do production configuration for webpack
+- we can create another file of webpack configuration to set production configurations.
+ex: "webpack.prod.config.json"
+- change mode to "production"
+- change in package.json "build": "webpack --config webpack.prod.config.json"
+- running build will generate bundle file in minified version.
+- add hash to filename it will generate new bundle file with hash, when build generated, it will help browser to indetify change and not serve catched file
+output: {
+    filename: "[contenthash].bundle.js"
+}
+
+9) using "clean-webpack-plugin" => It will empty dist folder everytime it rebuilds instead of adding new and keep only recently created bundle file.
+
+- install: npm install -save-dev clean-webpack-plugin
+- in "webpack.prod.config.json" add plugin section
+
+const { CleanWebpackPlugin } = require("clean-webpack-plugin")
+
+plugin: [
+    new CleanWebpackPlugin()    
+]
+- we can remove contenthash now as it will empty folder first and then add new file
+in "webpack.prod.config.json"
+output: {
+    filename: "bundle.js"
+}
+
+10) change script 
+server: "webpack --config webpack.config.json"
+build: "webpack --config webpack.prod.config.json"
+
+- when we run "npm run serve" it will take development configuration and runs server
+- when we run "npm run build" it will generate production build.
